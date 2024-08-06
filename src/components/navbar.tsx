@@ -1,5 +1,5 @@
-import {MdOutlineEmail, MdOutlinePhone, MdOutlineChat, MdPersonOutline, MdOutlineSearch, MdOutlineMenu, MdOutline1KPlus} from "react-icons/md";
-import { FaAngleDown, FaPlus } from "react-icons/fa6";
+import {MdOutlineEmail, MdOutlinePhone, MdOutlineChat, MdPersonOutline, MdOutlineSearch, MdOutlineMenu, MdLocationPin, MdEmail, MdLockClock, MdTurnRight, MdArrowRight, MdSwitchRight} from "react-icons/md";
+import { FaAngleDown, FaPlus, FaMinus } from "react-icons/fa6";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import Hovercase from "./hovercase";
@@ -11,6 +11,7 @@ export default function Navbar(){
     const [hovername, setHovername] = useState<string>("")
     const [openmenu, setOpenmenu] = useState<boolean>(false)
     const [menu, setMenu] = useState<string>("")
+    const [accardeon, setAccardeon] = useState<boolean>(false)
 
     // data
     const [pagedata, setPagedata] = useState<hovercasetype[]>(
@@ -150,8 +151,8 @@ export default function Navbar(){
 
     /*
     useEffect(() => {
-        console.log(hovername)
-    },[hovername])*/
+        console.log(menu)
+    },[menu])*/
 
     return(
 
@@ -232,12 +233,13 @@ export default function Navbar(){
             </div>
 
             {/* Drawer with animtion */}
+            <div>
             <AnimatePresence>
             {openmenu ? (<motion.div exit={{ x: 500, transition: {duration: .4} }} initial={menu_animation.initial} animate={menu_animation.animate} transition={menu_animation.transition} 
-            className="bg-white w-96 h-screen z-20 absolute top-0 right-0" onClick={(e) => e.stopPropagation()}>
+            className="bg-white w-96 h-screen z-20 absolute top-0 right-0" style={{overflowY:"scroll"}} onClick={(e) => e.stopPropagation()}>
                 <div className="flex m-6">
                     <div className="flex-1 flex items-center"><img src="/images/black-logo.svg" alt="icon"/></div>
-                    <div className="flex-1 flex justify-end"><IoCloseCircleSharp onClick={()=> setOpenmenu(!openmenu)} className={"text-blue-600 text-5xl"}/></div>
+                    <div className="flex-1 flex justify-end"><IoCloseCircleSharp onClick={()=> setOpenmenu(!openmenu)} className={"text-blue-600 text-5xl cursor-pointer hover:text-black"}/></div>
                 </div>
 
                 {/* Drawer description it will be hide in phones screen */}
@@ -249,19 +251,110 @@ export default function Navbar(){
                 {/* phone navigation in accardeon style */}
                 <div className="flex flex-col m-4
                 xl:hidden">
-                    <button onClick={()=> setMenu("home")} className="flex justify-between py-2"><span className="font-medium hover:text-orange-500">Home</span><FaPlus className={"relative top-1 hover:text-orange-500"}/></button>
+                    {/* home */}
+                    <button onClick={()=> { setAccardeon(true); setMenu("home"); if(accardeon && menu == "home"){setAccardeon(false); setMenu("")} }} className="flex justify-between py-2"><span className="font-medium hover:text-orange-500">Home</span>{menu == "home" ? <FaMinus className={"relative top-1 hover:text-orange-500"}/> : <FaPlus className={"relative top-1 hover:text-orange-500"}/>}</button>
                     <hr />
-                    {menu == "home" && <motion.div className="my-2"><a className="m-8" href="#">Web Hosting</a><hr /></motion.div>}
+                    <AnimatePresence>
+                        {menu == "home" && <motion.div exit={{y:-20, opacity:0}} initial={{y:0,opacity:0}} animate={{y:5,opacity:1}} transition={{duration:.3}} className="my-2">
+                            <a className="m-8 hover:text-orange-500" href="#">Web Hosting</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Hosting Services</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Hosting Solutiions</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Hosting Agency</a><hr className="my-2"/>
+                        </motion.div>}
+                    </AnimatePresence>
+
+                    {/* pages */}
+                    <button onClick={()=> { setAccardeon(true); setMenu("pages"); if(accardeon && menu == "pages"){setAccardeon(false); setMenu("")} }} className="flex justify-between py-2"><span className="font-medium hover:text-orange-500">Pages</span>{menu == "pages" ? <FaMinus className={"relative top-1 hover:text-orange-500"}/> : <FaPlus className={"relative top-1 hover:text-orange-500"}/>}</button>
+                    <hr />
+                    <AnimatePresence>
+                        {menu == "pages" && <motion.div exit={{y:-20, opacity:0}} initial={{y:0,opacity:0}} animate={{y:5,opacity:1}} transition={{duration:.3}} className="my-2">
+                            <a className="m-8 hover:text-orange-500" href="#">About Us</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Black Friday</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Affiliate</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Pricing</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Pricing package</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Data Center</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Services</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Team</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Team Details</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Error Pages</a><hr className="my-2"/>
+                        </motion.div>}
+                    </AnimatePresence>
+
+                    {/* hosting */}
+                    <button onClick={()=> { setAccardeon(true); setMenu("hosting"); if(accardeon && menu == "hosting"){setAccardeon(false); setMenu("")} }} className="flex justify-between py-2"><span className="font-medium hover:text-orange-500">Hosting</span>{menu == "hosting" ? <FaMinus className={"relative top-1 hover:text-orange-500"}/> : <FaPlus className={"relative top-1 hover:text-orange-500"}/>}</button>
+                    <hr />
+                    <AnimatePresence>
+                        {menu == "hosting" && <motion.div exit={{y:-20, opacity:0}} initial={{y:0,opacity:0}} animate={{y:5,opacity:1}} transition={{duration:.3}} className="my-2">
+                            <a className="m-8 hover:text-orange-500" href="#">Share Hosting</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Reseller Hosting</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Dedicated Hosting</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">VPS Hosting</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Node js Hosting</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Cloud Hosting</a><hr className="my-2"/>
+                        </motion.div>}
+                    </AnimatePresence>
+                    {/* doming */}
+                    <a href="#" className="flex justify-between py-2"><span className="font-medium hover:text-orange-500">Doming</span></a>
+                    {/* news */}
+                    <button onClick={()=> { setAccardeon(true); setMenu("news"); if(accardeon && menu == "news"){setAccardeon(false); setMenu("")} }} className="flex justify-between py-2"><span className="font-medium hover:text-orange-500">News</span>{menu == "news" ? <FaMinus className={"relative top-1 hover:text-orange-500"}/> : <FaPlus className={"relative top-1 hover:text-orange-500"}/>}</button>
+                    <hr />
+                    <AnimatePresence>
+                        {menu == "news" && <motion.div exit={{y:-20, opacity:0}} initial={{y:0,opacity:0}} animate={{y:5,opacity:1}} transition={{duration:.3}} className="my-2">
+                            <a className="m-8 hover:text-orange-500" href="#">News Grid</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">News List</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">News Details</a><hr className="my-2"/>
+                        </motion.div>}
+                    </AnimatePresence>
+                    {/* help center */}
+                    <button onClick={()=> { setAccardeon(true); setMenu("help"); if(accardeon && menu == "help"){setAccardeon(false); setMenu("")} }} className="flex justify-between py-2"><span className="font-medium hover:text-orange-500">Help Center</span>{menu == "help" ? <FaMinus className={"relative top-1 hover:text-orange-500"}/> : <FaPlus className={"relative top-1 hover:text-orange-500"}/>}</button>
+                    <hr />
+                    <AnimatePresence>
+                        {menu == "help" && <motion.div exit={{y:-20, opacity:0}} initial={{y:0,opacity:0}} animate={{y:5,opacity:1}} transition={{duration:.3}} className="my-2">
+                            <a className="m-8 hover:text-orange-500" href="#">Faq</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Error 404</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Support</a><hr className="my-2"/>
+                            <a className="m-8 hover:text-orange-500" href="#">Contact Us</a><hr className="my-2"/>
+                        </motion.div>}
+                    </AnimatePresence>
                     
                 </div>
 
                 {/* Contact info section */}
                 <div className="flex flex-col m-4">
                     <h1 className="font-bold text-lg mx-4">Contact Info</h1>
+
+                    <div className="flex mt-4">
+                        <MdLocationPin className={"text-blue-500 text-xl"}/>
+                        <span className="font-medium text-grey px-2">Main Street, Melbourne, Australia</span>
+                    </div>
+
+                    <a href="mailto:info@example.com" className="flex mt-4">
+                        <MdEmail className={"text-blue-500 text-xl"}/>
+                        <span className="font-medium text-grey px-2">info@example.com</span>
+                    </a>
+
+                    <div className="flex mt-4">
+                        <MdLockClock className={"text-blue-500 text-xl"}/>
+                        <span className="font-medium text-grey px-2">Mod-friday, 09am -05pm</span>
+                    </div>
+
+                    <a href="tel:+11002345909" className="flex mt-4">
+                        <MdOutlinePhone className={"text-blue-500 text-xl"}/>
+                        <span className="font-medium text-grey px-2">+11002345909</span>
+                    </a>
+
+                    <div className="flex mt-4">
+                        <a href="#" className="bg-blue-600 w-full p-3 font-medium text-white rounded-full flex justify-center transition-all duration-500
+                        hover:bg-black"
+                        >Get A Quote <MdArrowRight className="text-2xl" /></a>
+                    </div>
+
                 </div>
                 
             </motion.div>): null}
             </AnimatePresence>
+            </div>
 
         </div>
     )
