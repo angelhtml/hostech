@@ -236,7 +236,7 @@ export default function Navbar(){
             <div>
             <AnimatePresence>
             {openmenu ? (<motion.div exit={{ x: 500, transition: {duration: .4} }} initial={menu_animation.initial} animate={menu_animation.animate} transition={menu_animation.transition} 
-            className="bg-white w-96 h-screen z-20 absolute top-0 right-0" style={{overflowY:"scroll"}} onClick={(e) => e.stopPropagation()}>
+            className="bg-white w-96 h-screen z-20 absolute top-0 right-0" style={{overflowY:"auto"}} onClick={(e) => e.stopPropagation()}>
                 <div className="flex m-6">
                     <div className="flex-1 flex items-center"><img src="/images/black-logo.svg" alt="icon"/></div>
                     <div className="flex-1 flex justify-end"><IoCloseCircleSharp onClick={()=> setOpenmenu(!openmenu)} className={"text-blue-600 text-5xl cursor-pointer hover:text-black"}/></div>
